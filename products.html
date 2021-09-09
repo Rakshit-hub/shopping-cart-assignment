@@ -1,142 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products | Sasta Bazar</title>
-    <!-- font-awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    />
 
-    <!-- styles css -->
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- navbar -->
-    <nav class="navbar page">
-      <!-- logo -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products | Sasta Bazar</title>
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
 
-      <div class="nav-center">
-        <!-- links -->
-        <div>
-          <button class="toggle-nav">
-            <i class="fas fa-bars"></i>
-          </button>
-          <ul class="nav-links">
-            <li>
-              <a href="index.html" class="nav-link"> home </a>
-            </li>
-            <li>
-              <a href="products.html" class="nav-link"> products </a>
-            </li>
-          </ul>
-        </div>
+  <!-- styles css -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-        <img src="./static/images/logo.png" class="nav-logo" alt="logo" />
+<body onload="fetchProducts()">
+  <!-- navbar -->
+  <nav class="navbar page">
+    <!-- logo -->
 
-        <!-- cart icon -->
-        <div class="toggle-container">
-          <button class="toggle-cart">
-            <i class="fas fa-shopping-cart"></i>
-          </button>
-          <span class="cart-item-count">1</span>
-        </div>
-      </div>
-    </nav>
-
-    <!-- sidebar -->
-    <div class="sidebar-overlay">
-      <aside class="sidebar">
-        <!-- close -->
-        <button class="sidebar-close">
-          <i class="fas fa-times"></i>
+    <div class="nav-center">
+      <!-- links -->
+      <div>
+        <button class="toggle-nav">
+          <i class="fas fa-bars"></i>
         </button>
-        <!-- links -->
-        <ul class="sidebar-links">
+        <ul class="nav-links">
           <li>
-            <a href="index.html" class="sidebar-link">
-              <i class="fas fa-home fa-fw"></i>
-              home
-            </a>
+            <a href="index.html" class="nav-link"> home </a>
           </li>
           <li>
-            <a href="products.html" class="sidebar-link">
-              <i class="fas fa-couch fa-fw"></i>
-              products
-            </a>
+            <a href="products.html" class="nav-link"> products </a>
           </li>
         </ul>
-      </aside>
-    </div>
-    <!-- cart -->
-    <div class="cart-overlay">
-      <aside class="cart">
-        <button class="cart-close">
-          <i class="fas fa-times"></i>
+      </div>
+
+      <img src="public/static/images/logo.png" class="nav-logo" alt="logo" />
+
+      <!-- cart icon -->
+      <div class="toggle-container">
+        <button class="toggle-cart" onclick="openCart()">
+          <i class="fas fa-shopping-cart"></i>
         </button>
-        <header>
-          <h3 class="text-slanted">your bag</h3>
-        </header>
-        <!-- cart items -->
-        <div class="cart-items"></div>
-        <!-- footer -->
-        <footer>
-          <h3 class="cart-total text-slanted">total : $12.99</h3>
-          <button class="cart-checkout btn">checkout</button>
-        </footer>
-      </aside>
+        <span class="cart-item-count">1</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- sidebar -->
+  <div class="sidebar-overlay ">
+    <aside class="sidebar">
+      <!-- close -->
+      <button class="sidebar-close">
+        <i class="fas fa-times"></i>
+      </button>
+      <!-- links -->
+      <ul class="sidebar-links">
+        <li>
+          <a href="index.html" class="sidebar-link">
+            <i class="fas fa-home fa-fw"></i>
+            home
+          </a>
+        </li>
+        <li>
+          <a href="products.html" class="sidebar-link">
+            <i class="fas fa-couch fa-fw"></i>
+            products
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <!-- cart -->
+  <div class="cart-overlay" id="cart">
+    <aside class="cart">
+      <button class="cart-close" onclick="cartClose()">
+        <i class="fas fa-times"></i>
+      </button>
+      <header>
+        <h3 class="text-slanted">your bag</h3>
+      </header>
+      <!-- cart items -->
+      <div class="cart-items"></div>
+      <!-- footer -->
+      <footer>
+        <h3 class="cart-total text-slanted">total : $12.99</h3>
+        <button class="cart-checkout btn">checkout</button>
+      </footer>
+    </aside>
+  </div>
+  <!-- products -->
+  <section class="products">
+    <!-- filters -->
+    <div class="filters">
+      <div class="filters-container">
+
+
+        <!-- categories -->
+
+        <article class="companies">
+          <button class="company-btn">Fruits and Vegetables</button>
+          <button class="company-btn">Bakery</button>
+          <button class="company-btn">Beverages</button>
+          <button class="company-btn">Beauty and Hygeine</button>
+          <button class="company-btn">Baby Care</button>
+        </article>
+        <!-- price -->
+      </div>
     </div>
     <!-- products -->
-    <section class="products">
-      <!-- filters -->
-      <div class="filters">
-        <div class="filters-container">
-          
 
-          <!-- categories -->
+    <div class="products-container" id="productId">
 
-          <article class="companies">
-            <button class="company-btn">Fruits and Vegetables</button>
-            <button class="company-btn">Bakery</button>
-            <button class="company-btn">Beverages</button>
-            <button class="company-btn">Beauty and Hygeine</button>
-            <button class="company-btn">Baby Care</button>
-          </article>
-          <!-- price -->
-        </div>
-      </div>
-      <!-- products -->
-      <div id="productId">
 
-      </div>
-      <!-- <div class="products-container">
-        <article class="product">
-          <div class="product-container">
-            <h4 class="product_Name">Fresho-kiwi Green,3pcs</h4>
-            <img src="./static/images/products/beverages/bournvita.jpg" class="product-img img" alt="" /> 
-            <h5 class="product-Desc">3pc (270-300g)</h5>
-            <div class="desc_Box p-2">
-              shdvjkj kdvjhlskvj nlkjdvlj nlj;lvj lkjlkjv jlkvklsdvkl jwvlkw
-              bkwev kjwevlk
-            </div>
-          </div>
-          <footer class="FooterBtn">
-            <p class="product-name">MRP 97</p>
-            <h4 class="BuyBtn">BUY NOW</h4>
-          </footer>
-        </article>
-      </div>
-    </section> -->
-    <!-- page loading -->
-    <!-- <div class="page-loading">
-      <h2>Loading...</h2>
-    </div> -->
-    <script type="module" src="./src/pages/product.js">
-     function fetchProducts(){
-       fetch
-     }
-    </script>
-  </body>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  </section>
+
+  <script>
+    function fetchProducts() {
+      fetch(`http://localhost:5000/server/products`)
+        .then(res => res.json())
+        .then((res) => {
+          productDisplay(res)
+          console.log("productsResponse", res)
+        })
+        .catch((err) => {
+          console.log(err)
+
+        })
+    }
+    function openCart() {
+      const openCart = document.getElementById("cart")
+      openCart.setAttribute("class", "cart-overlay show")
+    }
+
+    function cartClose() {
+      const closeCart = document.getElementById("cart")
+      closeCart.setAttribute("class", "cart-overlay")
+    }
+
+
+
+    function productDisplay(data) {
+      const productContainer = document.getElementById("productId")
+      data.forEach((item) => {
+        const article = document.createElement("article")
+        article.setAttribute('class', 'product')
+        let productCard = document.createElement("div")
+        productCard.setAttribute("class", "product-container")
+        const h4 = document.createElement("h4")
+        h4.setAttribute("class", "product_Name")
+        h4.innerHTML = item.name
+        const img = document.createElement("img")
+        img.setAttribute("src", `public/${item.imageURL}`)
+        img.setAttribute("class", "product-img img")
+        const desSec = document.createElement("div")
+        desSec.setAttribute("class", "desc_Box")
+        desSec.innerHTML = item.description
+        const footer = document.createElement("footer")
+        footer.setAttribute("class", "FooterBtn")
+        const p = document.createElement("p")
+        p.setAttribute("class", "product-name")
+        p.innerHTML = `MRP ${item.price}`
+        const buyBtn = document.createElement("h4")
+        buyBtn.setAttribute("class", "BuyBtn")
+        buyBtn.innerHTML = "BUY NOW"
+
+
+
+
+
+
+        productContainer.appendChild(article)
+        article.appendChild(productCard)
+        productCard.appendChild(h4)
+        productCard.appendChild(img)
+        productCard.appendChild(desSec)
+        article.appendChild(footer)
+        footer.appendChild(p)
+        footer.appendChild(buyBtn)
+
+      })
+    }
+  </script>
+</body>
+
 </html>

@@ -44,12 +44,22 @@
 
             <img src="public/static/images/logo.png" class="nav-logo" alt="logo" onclick="loadAPI()" />
 
-            <!-- cart icon -->
-            <div class="toggle-container">
-                <button class="toggle-cart">
-                    <i class="fas fa-shopping-cart"></i>
-                </button>
-                <span class="cart-item-count">1</span>
+            <div class="cart-overlay" id="cart">
+                <aside class="cart">
+                    <button class="cart-close" onclick="cartClose()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <header>
+                        <h3 class="text-slanted">your bag</h3>
+                    </header>
+                    <!-- cart items -->
+                    <div class="cart-items"></div>
+                    <!-- footer -->
+                    <footer>
+                        <h3 class="cart-total text-slanted">total : $12.99</h3>
+                        <button class="cart-checkout btn">checkout</button>
+                    </footer>
+                </aside>
             </div>
         </div>
     </nav>
@@ -188,6 +198,16 @@
             }
             slides[slideIndex - 1].style.display = "block";
             dots[slideIndex - 1].className += " active";
+        }
+
+        function openCart() {
+            const openCart = document.getElementById("cart")
+            openCart.setAttribute("class", "cart-overlay show")
+        }
+
+        function cartClose() {
+            const closeCart = document.getElementById("cart")
+            closeCart.setAttribute("class", "cart-overlay")
         }
     </script>
 </body>
