@@ -39,6 +39,7 @@
     "name": "Seafood",
     "key": "seafood",
     "description": "Great place to buy fresh seafood.",
+    "imageUrl": "/static/images/category/fruits.png",
     "enabled": false,
     "order": -1,
     "id": "5b68997d3d1a866534f516e1"

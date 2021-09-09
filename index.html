@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sasta Bazaar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <!-- styles css -->
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: Verdana, sans-serif;
+            margin: 0
+        }
+    </style>
+</head>
+
+<body onload="loadAPI()">
+    <!-- navbar -->
+    <nav class="navbar page">
+        <!-- logo -->
+
+        <div class="nav-center">
+            <!-- links -->
+            <div>
+                <button class="toggle-nav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li>
+                        <a href="index.html" class="nav-link"> home </a>
+                    </li>
+                    <li>
+                        <a href="products.html" class="nav-link"> products </a>
+                    </li>
+                </ul>
+            </div>
+
+            <img src="public/static/images/logo.png" class="nav-logo" alt="logo" onclick="loadAPI()" />
+
+            <!-- cart icon -->
+            <div class="toggle-container">
+                <button class="toggle-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+                <span class="cart-item-count">1</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="body_content">
+        <div class="slideshow-container" id="carasouelId">
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+        </div>
+
+        <!-- Catogories Section -->
+        <div id="categoryId">
+
+        </div>
+
+    </div>
+
+    <footer class="footerText">
+        Copyright © 2020-2021 Sabka-bazaar Grocery Supplies Pvt Ltd.
+    </footer>
+
+    <script>
+        let bannerResponse
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function createCarosel(data) {
+            const carauselContainer = document?.getElementById('carasouelId');
+            data.forEach((item) => {
+                const carauselContent = document.createElement('div');
+                carauselContent.setAttribute('class', 'mySlides fade');
+                const carauselImage = document.createElement('img');
+                carauselImage.setAttribute('src', `public/${item.bannerImageUrl}`);
+                carauselImage.setAttribute('style', 'width:100%');
+                carauselImage && carauselContent.appendChild(carauselImage);
+                carauselContent && carauselContainer.appendChild(carauselContent);
+            })
+        }
+
+
+
+        function createCatogories(data) {
+            const categoryContainer = document.getElementById("categoryId")
+            data.forEach((item, index) => {
+                const categoryData = document.createElement("div")
+                categoryData.setAttribute("class", "categoryContainer")
+                const categoryImgSection = document.createElement("div")
+                const despSecion = document.createElement("div")
+                despSecion.setAttribute("class", "DescSection")
+                categoryImgSection.setAttribute('class', 'ImgSection');
+                const categoryImg = document.createElement("img")
+                categoryImg.setAttribute('src', `public/${item.imageUrl}`)
+                categoryImg.setAttribute("class", "categoryImg")
+                categoryImgSection.appendChild(categoryImg)
+                const h3 = document.createElement("h3")
+                h3.innerHTML = item.name
+                const p = document.createElement("p")
+                p.innerHTML = item.description
+                h3.setAttribute('class', "headlines")
+                p.setAttribute('class', "headlines")
+                const button = document.createElement("button")
+                button.setAttribute('class', "btn")
+                button.innerHTML = `Explore ${item.key}`
+                button.setAttribute("href", "products.html")
+                despSecion.appendChild(h3)
+                despSecion.appendChild(p)
+                despSecion.appendChild(button)
+                if (index % 2 === 0) {
+                    categoryData.appendChild(categoryImgSection)
+                    categoryData.appendChild(despSecion)
+                } else {
+                    categoryData.appendChild(despSecion)
+                    categoryData.appendChild(categoryImgSection)
+
+                }
+
+                categoryContainer.appendChild(categoryData)
+            })
+        }
+
+
+
+        function loadAPI() {
+            fetch(`http://localhost:5000/server/banners`)
+                .then(res => res.json())
+                .then(response => {
+                    console.log(response, 'rsponse')
+                    bannerResponse = response
+                    createCarosel(bannerResponse)
+                    fetchCategories()
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+        // Api call to display all categories
+        function fetchCategories() {
+            fetch(`http://localhost:5000/server/categories`)
+                .then(res => res.json())
+                .then((res) => {
+                    createCatogories(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+</body>
+
+</html>
